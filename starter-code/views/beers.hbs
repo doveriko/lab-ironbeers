@@ -1,11 +1,9 @@
 <div>
-    <h2>Abel's beers</h2>
-    <main>
-        {{#each beers}}
-            {{this.name}}<br>
-           <img src= "{{this.image_url}}"  alt=""><br> 
-            {{this.tagline}} <br>
-            {{this.description}} <br> 
-        {{/each}}
-    </main>
+
+    {{#each allBeers }}
+    <div>
+        {{> beerpartial this}}
+    </div>
+    {{/each}}
+
 </div>

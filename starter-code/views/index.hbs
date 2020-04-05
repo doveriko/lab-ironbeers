@@ -1,9 +1,17 @@
 <div>
-<img src="/images/beer.png"` alt="beer">
+    <img src="/images/beer.png" alt="">
 
-<form>
-    <input type="button" onclick="window.location.href = '/beers';" value="Check the Beers!"/>
-    <input type="button" onclick="window.location.href = '/random-beer';" value="Check a Random Beer"/>
-</form>
+    <div>
+        <form action="/beers">
+            <input type="submit" value="Check the beers!" />
+        </form>
+    </div>
+
+    <div>
+        <form action="/random-beers">
+            <input type="submit" value="Check a random beer!" />
+        </form>
+    </div>
+
 
 </div>

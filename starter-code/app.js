@@ -9,38 +9,44 @@ const punkAPI = new PunkAPIWrapper();
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
-app.use(express.static(path.join(__dirname, 'public')));
-
 // add the partials here:
+hbs.registerPartials(path.join(__dirname, 'views/partials'));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 // add the routes here:
 app.get('/', (req, res) => res.render('index'));
 
-app.get('/beers', (req, res) => 
-{
-    
-    punkAPI.getBeers()
-    .then((beers)=>{
-        res.render("beers",{beers});
+app.get('/beers', (req, res) => {
+  punkAPI
+    .getBeers()
+    .then((allBeers) => {
+      res.render('beers', { allBeers });
+      //console.log("ALL BEERS", allBeers)
     })
-    .catch((err)=>{
-        console.log("error");
-    });
-}
-)
+    .catch((error) => console.log(error));
+});
 
-app.get('/random-beer', (req, res) => 
-{
-    
-    punkAPI.getRandom()
-    .then((randomBeer)=>{
-        console.log("OYEEE", randomBeer[0])
-        res.render("random-beer",{beer: randomBeer[0]});
+app.get('/random-beers', (req, res) => {
+  punkAPI
+    .getRandom()
+    .then((randomBeer) => {
+      res.render('randomBeer', {randomBeer: randomBeer[0]})
+      //console.log("RANDOM BEER", randomBeer[0]);
     })
-    .catch((err)=>{
-        console.log("error");
-    });
-}
-)
+    .catch((error) => console.log(error));
+});
+
+app.get('/beers/:id', (req, res) => {
+    const beerId = req.params.id
+    punkAPI
+    .getBeer(beerId)
+    .then((oneBeer) => {
+        res.render('onebeer', {oneBeer: oneBeer[0]})
+        //console.log("ONE BEER", oneBeer);
+    })
+    .catch((error) => console.log(error)
+    )
+})
 
 app.listen(3000, () => console.log('🏃‍ on port 3000'));
